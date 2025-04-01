@@ -20,6 +20,7 @@ H = 6;
 D = 15;
 
 wall();
+mole();
 
 
 module main()
@@ -70,7 +71,7 @@ difference()
     translate([th, -W/2+th, th]) cube([LL+gap2, W-th*2, 57-th*2-30]);
     translate([th, -W/2+th, th]) cube([LL+24, 20, 57]);
     translate([th, -W/2-20+th-4, 57+th]) cube([LL+24, 40+4, 20+th*2]);
-    #translate([LL+24-6, -W/2-20+th-th-4, 57+th]) cube([6, 40, 20+th*2]);
+    translate([LL+24-10, -W/2-20+th-th-4, 57+th]) cube([10, 40, 20+th*2]);
     
     
     
@@ -88,6 +89,24 @@ difference()
     translate([0, -LANW/2-40/2, 0]) {
     #translate([0, LANW/2, 0]) resize(newsize=[LL, LANW, LANH]) rotate([0, 90, 0]) cylinder(h=1, r=1, $fn=100);
     }
+}
+}
+
+
+module mole()
+{
+LL = 30;
+difference()
+{
+    union()
+    {
+        translate([LL+24-10, -W/2-20+th-th-4-110, 57+th]) cube([10, 110+15, 20+th*2]);
+        translate([LL+24-10, -W/2-20+th-th-4-110, 57+th-th]) cube([10, 110, 20+th*2+th*2]);
+    }
+    translate([LL+24-10+th, -W/2-20+th-th-4-110, 57+th+th]) cube([10, 110+15, 20+th*2-th*2]);
+    translate([LL+24-10, -W/2-20+th-th-4+th, 57+th+th]) cube([10, 15-th, 20+th*2-th*2]);
+
+
 }
 }
 
