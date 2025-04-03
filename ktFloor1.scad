@@ -19,9 +19,100 @@ W = 100;
 H = 6;
 D = 15;
 
-wall();
-mole();
+//wall();
+//mole();
+//tower1();
+tower2();
 
+module tower1()
+{
+difference()
+{
+    union()
+    {
+        tower();
+    }
+    #translate([85/2, -W/2, 0]) cube([100, 100, 100]);
+}
+}
+module tower2()
+{
+difference()
+{
+    union()
+    {
+        tower();
+    }
+    #translate([-100+85/2, -W/2, 0]) cube([100, 100, 100]);
+}
+}
+
+module tower()
+{
+difference()
+{
+    union()
+    {
+        tower_base();
+        translate([85/2, 0, -5]) rotate([12, 0, 0]) cylinder(h=80, r1=60/2, r2=22/2, $fn=100);
+    }
+    tower_diff();
+    translate([85/2, 0, -5]) rotate([12, 0, 0]) cylinder(h=81, r1=(60-th*2)/2, r2=(22-th*2)/2, $fn=100);
+}
+}
+module tower_base()
+{
+difference()
+{
+    union()
+    {
+        translate([0, -W/2, 0]) cube([85, W, H]);
+    }
+    translate([-gap1, -W/2, 0]) rotate([11, 0, 0]) cube([85+gap2, W, H*3]);
+    translate([85+gap1,  W/2, 0]) rotate([11, 0, 180]) cube([85+gap2, W, H*3]);
+    
+    //AC
+    translate([0, -ACW/2, 0]) {
+    translate([th, ACW/2, ACH-ACR/2]) resize(newsize=[85, ACW, ACR]) rotate([0, 90, 0]) cylinder(h=1, r=1, $fn=100);
+    translate([th, 0, 0]) cube([85, ACW, ACH-ACR/2]);
+    #translate([0, 0, 0]) cube([85, ACW, 1]);
+    }
+    //LAN1
+    translate([0, -LANW/2+40/2, 0]) {
+    translate([th, LANW/2, 0]) resize(newsize=[85, LANW, LANH]) rotate([0, 90, 0]) cylinder(h=1, r=1, $fn=100);
+    #translate([0, 0, 0]) cube([85, LANW, 1]);
+    }
+    //LAN2
+    translate([0, -LANW/2-40/2, 0]) {
+    translate([th, LANW/2, 0]) resize(newsize=[85, LANW, LANH]) rotate([0, 90, 0]) cylinder(h=1, r=1, $fn=100);
+    #translate([0, 0, 0]) cube([85, LANW, 1]);
+    }
+}
+}
+module tower_diff()
+{
+difference()
+{
+    union()
+    {
+    //AC
+    translate([0, -ACW/2, 0]) {
+    translate([th, ACW/2, ACH-ACR/2]) resize(newsize=[85, ACW, ACR]) rotate([0, 90, 0]) cylinder(h=1, r=1, $fn=100);
+    translate([th, 0, 0]) cube([85, ACW, ACH-ACR/2]);
+    }
+    //LAN1
+    translate([0, -LANW/2+40/2, 0]) {
+    translate([th, LANW/2, 0]) resize(newsize=[85, LANW, LANH]) rotate([0, 90, 0]) cylinder(h=1, r=1, $fn=100);
+    }
+    //LAN2
+    translate([0, -LANW/2-40/2, 0]) {
+    translate([th, LANW/2, 0]) resize(newsize=[85, LANW, LANH]) rotate([0, 90, 0]) cylinder(h=1, r=1, $fn=100);
+    }
+    
+    translate([0, -50, -100]) cube([100, 100, 100]);
+    }
+}
+}
 
 module main()
 {
